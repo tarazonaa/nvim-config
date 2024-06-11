@@ -3,23 +3,23 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   config = function()
+  --     require('copilot').setup {
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     }
+  --   end,
+  -- },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
   {
     'alexghergh/nvim-tmux-navigation',
     config = function()
@@ -138,6 +138,31 @@ return {
         -- optional configuration here
       }
       require('neomodern').load()
+    end,
+  },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<C-y>',
+          clear_suggestion = '<C-n>',
+          accept_word = '<C-j>',
+        },
+        color = {
+          suggestion_color = '#ffffff',
+          cterm = 244,
+        },
+        disable_inline_completion = false,
+        disable_keymaps = false,
+      }
+    end,
+  },
+  {
+    'saecki/crates.nvim',
+    tag = 'stable',
+    config = function()
+      require('crates').setup()
     end,
   },
 }
