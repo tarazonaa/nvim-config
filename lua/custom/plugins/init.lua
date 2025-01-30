@@ -4,23 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
-  {
     'alexghergh/nvim-tmux-navigation',
     config = function()
       local nvim_tmux_nav = require 'nvim-tmux-navigation'
@@ -59,30 +42,6 @@ return {
     end,
   },
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    config = function()
-      require('CopilotChat').setup {
-        show_help = true, -- Lua uses true/false for boolean
-        debug = false,
-        disable_extra_info = false, -- Assuming this is a boolean, not 'yes'/'no'
-        language = 'English',
-        -- proxy and temperature can be uncommented if needed
-      }
-      vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
-      local enable_providers = {
-        'python3_provider',
-        'node_provider',
-        -- and so on
-      }
-
-      for _, plugin in pairs(enable_providers) do
-        vim.g['loaded_' .. plugin] = nil
-        vim.cmd('runtime ' .. plugin)
-      end
-    end,
-    event = 'VeryLazy',
-  },
-  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
@@ -109,7 +68,6 @@ return {
           lualine_a = { 'mode' },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = { 'filename' },
-          lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
         },
@@ -128,7 +86,6 @@ return {
       }
     end,
   },
-  { 'AndreM222/copilot-lualine' },
   {
     'cdmill/neomodern.nvim',
     lazy = false,
