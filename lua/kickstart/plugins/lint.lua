@@ -8,12 +8,6 @@ return {
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
         html = { 'tidy' },
-        css = { 'stylelint' },
-        scss = { 'stylelint' },
-        javascript = { 'eslint' },
-        typescript = { 'eslint' },
-        typescriptreact = { 'eslint' },
-        vue = { 'eslint' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -63,10 +57,5 @@ return {
         end,
       })
     end,
-  },
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
   },
 }
