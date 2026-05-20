@@ -54,7 +54,6 @@ vim.pack.add {
   'https://github.com/Saghen/blink.cmp',
   'https://github.com/Saghen/blink.lib',
 
-  'https://github.com/karb94/neoscroll.nvim',
   'https://github.com/linrongbin16/gitlinker.nvim',
   'https://github.com/sindrets/diffview.nvim',
   'https://github.com/tpope/vim-fugitive',
@@ -111,20 +110,8 @@ local function setup_ts()
 
   autocmd('FileType', {
     group = augroup,
-    callback = function(args)
-      local lang = vim.treesitter.language.get_lang(args.match)
-      if not lang then
-        return
-      end
-
-      if not pcall(vim.treesitter.language.add, lang) then
-        return
-      end
-
-      if lang and pcall(vim.treesitter.language.add, lang) then
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.treesitter.start()
-      end
+    callback = function()
+      pcall(vim.treesitter.start)
     end,
   })
 end
@@ -136,6 +123,7 @@ local function setup_lsp()
     'ts_ls',
     'zls',
     'elixirls',
+    "lua_ls",
   }
 
   autocmd('LspAttach', {
@@ -164,6 +152,12 @@ local function setup_lsp()
 end
 
 -- blink
+require("mini.snippets").setup({
+  snippets = {
+    require("mini.snippets").gen_loader.from_lang(),
+  },
+})
+
 require('blink.cmp').setup {
   keymap = {
     preset = 'default',
@@ -188,6 +182,10 @@ require('blink.cmp').setup {
     enabled = true,
   },
 
+  snippets = {
+    preset = "mini_snippets",
+  },
+
   sources = {
     default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
@@ -203,6 +201,3 @@ require('diffview').setup { use_icons = false }
 require('mini.pick').setup()
 require('mini.files').setup()
 require('mini.surround').setup()
-require('mini.snippets').setup()
-
-require('neoscroll').setup()
